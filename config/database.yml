@@ -1,0 +1,20 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: rbm_release_tracker_development
+
+test:
+  <<: *default
+  database: rbm_release_tracker_test
+
+
+production:
+  <<: *default
+  database: rbm_release_tracker_production
+  username: rbm_release_tracker
+  password: <%= ENV['RBM_RELEASE_TRACKER_DATABASE_PASSWORD'] %>
