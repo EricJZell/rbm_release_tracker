@@ -1,8 +1,12 @@
 <h1>Apps</h1>
 <div class="row">
   <div class="small-4 columns">
-    <% @apps.each do |app| %>
-      <%= link_to(app.name, app_path(app)) %>
-    <% end %>
+    <ul>
+      <% @apps.each do |app| %>
+        <li id="<%= dom_id(app)%>">
+          <%= link_to(app.name, app_path(app)) %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

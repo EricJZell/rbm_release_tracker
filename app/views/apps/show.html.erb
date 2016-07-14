@@ -2,7 +2,7 @@
 <h2>Releases:</h2>
 <ul>
   <% @app.releases.each do |release| %>
-    <li>
+    <li id="<%= dom_id(release)%>">
       <%= link_to("Branch: #{release.branch_name}", app_release_path(@app.id, release.id)) %>
     </li>
   <% end %>

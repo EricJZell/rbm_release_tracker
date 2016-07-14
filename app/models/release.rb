@@ -5,4 +5,8 @@ class Release < ActiveRecord::Base
   validates :branch_name, presence: true
   validates :tag_name, presence: true
 
+  def self.for_app(app)
+    where(app: app)
+  end
+
 end
