@@ -1,0 +1,17 @@
+<h1>Clients</h1>
+<div class="row">
+  <div class="small-8 columns">
+    <ul>
+      <% @apps.each do |app| %>
+        <li id="<%= dom_id(app)%>">
+          <%= link_to(app.name, app_path(app)) %> clients:
+          <ul>
+            <% app.clients.each do |client| %>
+              <li><%="#{client.name} (#{client.abbreviated_name})"%></li>
+            <%end%>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
