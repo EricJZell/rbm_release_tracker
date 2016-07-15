@@ -1,0 +1,27 @@
+<%= form_for [@app, @release] do |form| %>
+
+  <% if @release.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@release.errors.count, "error") %> prohibited this release from being saved:</h2>
+
+      <ul>
+      <% @release.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.label :branch_name %>
+  <%= form.text_field :branch_name %>
+
+  <%= form.label :tag_name %>
+  <%= form.text_field :tag_name %>
+
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+
+  <%=collection_check_boxes(:release, :client_ids, Client.all, :id, :name)%>
+
+  <%= form.submit "Save" %>
+<% end %>

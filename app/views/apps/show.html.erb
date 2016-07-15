@@ -1,4 +1,5 @@
-<h1><%= @app.name %><h1>
+<h1><%= @app.name %></h1>
+  <%= link_to("Add a new release", new_app_release_path(@app)) %>
 <h2>Releases:</h2>
 <ul>
   <% @app.releases.each do |release| %>

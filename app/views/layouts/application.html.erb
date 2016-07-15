@@ -12,14 +12,13 @@
   </head>
 
   <body>
+    <%= render 'layouts/top_bar' %>
 
-    <div class="contain-to-grid">
-      <%= render 'layouts/top_bar' %>
-    </div>
+
 
     <div class="row">
       <%= yield %>
     </div>
-    
+
   </body>
 </html>

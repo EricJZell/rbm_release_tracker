@@ -1,4 +1,8 @@
 <h1>Release Branch: <%=@release.branch_name%>, Tag: <%=@release.tag_name%></h1>
   <div>
     <%= @release.description %>
+    Applicable clients:
+    <% @release.clients.each do |client| %>
+      <%= client.name %>,
+    <% end %>
   </div>
