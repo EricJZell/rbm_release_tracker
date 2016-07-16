@@ -21,8 +21,10 @@ class ReleasesController < ApplicationController
       client_ids.each do |client_id|
         @release.release_clients.create(client_id: client_id)
       end
-      redirect_to app_release_path(@app, @release), notice: 'Release was successfully created.'
+      flash[:primary] = "New Release Created Successfully"
+      redirect_to app_release_path(@app, @release)
     else
+      flash[:alert] = @release.errors.full_messages.join(', ')
       render :new
     end
   end

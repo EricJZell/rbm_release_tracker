@@ -19,10 +19,10 @@ feature 'user creates a new release', %{
   scenario 'user creates a valid new release' do
     visit app_path(apps[0])
     click_link "Add a new release"
-    fill_in "Branch Name", with: "rel_15_5_1_rc"
-    fill_in "Tag Name", with: "v15.5.1"
+    fill_in "Branch name", with: "rel_15_5_1_rc"
+    fill_in "Tag name", with: "v15.5.1"
     check "ATT"
-    click_button "Create Release"
+    click_button "Save"
     expect(page).to have_content("New Release Created Successfully")
   end
 
@@ -31,7 +31,7 @@ feature 'user creates a new release', %{
     click_link "Add a new release"
     check "ATT"
     click_button "Save"
-    expect(page).to have_content("Branch Name can't be blank")
+    expect(page).to have_content("Branch name can't be blank")
   end
 
 end

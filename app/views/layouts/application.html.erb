@@ -13,7 +13,13 @@
 
   <body>
     <%= render 'layouts/top_bar' %>
-
+    <%- flash.each do |key, value| -%>
+      <div class="callout <%=key%>">
+        <div class="row">
+          <%= value %>
+        </div>
+      </div>
+    <%- end -%>
 
 
     <div class="row">
