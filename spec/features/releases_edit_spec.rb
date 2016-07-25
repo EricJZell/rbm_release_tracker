@@ -14,24 +14,20 @@ feature 'user creates a new release', %{
 
   let!(:app) { App.create(name: "VMM") }
   let!(:clients) { [FactoryGirl.create(:client, app: app, name: "ATT"),
-                    FactoryGirl.create(:client, app: app, name: "Cricket")] }
+                    FactoryGirl.create(:client, app: app), name: "Cricket"] }
+  let!(:release) { FactoryGirl.create(:release, app: app) }
 
-  scenario 'user creates a valid new release' do
+  scenario 'user edits a release with valid info' do
     visit app_path(app)
-    click_link "Add a new release"
+    within "#release_#{release.id}" do
+      click_link "Edit"
+    end
     fill_in "Branch name", with: "rel_15_5_1_rc"
     fill_in "Tag name", with: "v15.5.1"
     check "ATT"
     click_button "Save"
-    expect(page).to have_content("New Release Created Successfully")
+    expect(page).to have_content("Release Updated Successfully")
   end
 
-  scenario 'user fills out form with invalid inputs' do
-    visit app_path(app)
-    click_link "Add a new release"
-    check "ATT"
-    click_button "Save"
-    expect(page).to have_content("Branch name can't be blank")
-  end
 
 end

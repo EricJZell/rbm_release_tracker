@@ -12,20 +12,37 @@ class ReleasesController < ApplicationController
 
   def create
     @app = App.find(params[:app_id])
-    all_params = release_params
-    client_ids = all_params.delete("client_ids")
-    @release = Release.new(all_params)
+    singular_params = release_params
+    client_ids = singular_params.delete("client_ids")
+    client_ids.pop
+    @release = Release.new(singular_params)
     @release.app = @app
-    if @release.save
-      client_ids.pop
-      client_ids.each do |client_id|
-        @release.release_clients.create(client_id: client_id)
-      end
+    if @release.save && @release.update(clients: Client.find(client_ids))
       flash[:primary] = "New Release Created Successfully"
       redirect_to app_release_path(@app, @release)
     else
       flash[:alert] = @release.errors.full_messages.join(', ')
       render :new
+    end
+  end
+
+  def edit
+    @app = App.find(params[:app_id])
+    @release = @app.releases.find(params[:id])
+  end
+
+  def update
+    @app = App.find(params[:app_id])
+    singular_params = release_params
+    client_ids = singular_params.delete("client_ids")
+    client_ids.pop
+    @release = Release.find(params[:id])
+    if @release.update(singular_params) && @release.update(clients: Client.find(client_ids))
+      flash[:primary] = "Release Updated Successfully"
+      redirect_to app_release_path(@app, @release)
+    else
+      flash[:alert] = @release.errors.full_messages.join(', ')
+      render :edit
     end
   end
 

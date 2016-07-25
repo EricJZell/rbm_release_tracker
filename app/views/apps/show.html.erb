@@ -5,6 +5,7 @@
   <% @app.releases.each do |release| %>
     <li id="<%= dom_id(release)%>">
       <%= link_to("Branch: #{release.branch_name}", app_release_path(@app.id, release.id)) %>
+      <%= link_to("Edit", edit_app_release_path(@app.id, release.id)) %>
     </li>
   <% end %>
 </ul>
