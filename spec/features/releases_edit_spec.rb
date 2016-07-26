@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-feature 'user creates a new release', %{
+feature 'user edits a release', %{
   As a user
-  I want to create a new release
+  I want to edit a release
   So that the app pages shows up to date releases
 
   # Acceptance Criteria
@@ -38,7 +38,5 @@ feature 'user creates a new release', %{
     fill_in "Tag name", with: ""
     click_button "Save"
   end
-
-
 
 end

@@ -5,4 +5,5 @@
     <% @release.clients.each do |client| %>
       <%= client.name %>,
     <% end %>
+    <%= link_to("Delete", app_release_path(@release.app.id, @release.id), method: :delete) %>
   </div>

@@ -6,6 +6,7 @@
     <li id="<%= dom_id(release)%>">
       <%= link_to("Branch: #{release.branch_name}", app_release_path(@app.id, release.id)) %>
       <%= link_to("Edit", edit_app_release_path(@app.id, release.id)) %>
+      <%= link_to("Delete", app_release_path(@app.id, release.id), method: :delete) %>
     </li>
   <% end %>
 </ul>

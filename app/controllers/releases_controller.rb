@@ -46,6 +46,14 @@ class ReleasesController < ApplicationController
     end
   end
 
+  def destroy
+    @release = Release.find(params[:id])
+    @release.destroy
+    @app = App.find(params[:app_id])
+    flash[:primary] = "Release Deleted Successfully"
+    redirect_to app_path(@app)
+  end
+
   private
 
   def release_params
