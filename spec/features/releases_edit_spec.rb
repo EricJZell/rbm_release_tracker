@@ -29,5 +29,16 @@ feature 'user creates a new release', %{
     expect(page).to have_content("Release Updated Successfully")
   end
 
+  scenario 'user edits a release with invalid info' do
+    visit app_path(app)
+    within "#release_#{release.id}" do
+      click_link "Edit"
+    end
+    fill_in "Branch name", with: ""
+    fill_in "Tag name", with: ""
+    click_button "Save"
+  end
+
+
 
 end
