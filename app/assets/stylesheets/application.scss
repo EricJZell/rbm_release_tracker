@@ -20,12 +20,18 @@
 
  */
 
+@import 'settings';
+
 div.main {
   padding: 1em;
 }
 
- .menu-text a {
-   color: #eee;
+ .top-bar a {
+   color: $white;
+ }
+
+ .top-bar a:hover {
+   color: scale-color($white, $lightness: -14%);
  }
 
  li {
