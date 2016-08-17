@@ -57,7 +57,7 @@ class ReleasesController < ApplicationController
   private
 
   def release_params
-    params.require(:release).permit(:branch_name, :app_id, :tag_name, client_ids: [])
+    params.require(:release).permit(:description, :branch_name, :app_id, :tag_name, client_ids: [])
   end
 
 end

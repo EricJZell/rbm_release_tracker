@@ -1,9 +1,20 @@
-<h1>Release Branch: <%=@release.branch_name%>, Tag: <%=@release.tag_name%></h1>
+<h1><%= @app.name %> Release: <%=@release.tag_name%></h1>
   <div>
-    <%= @release.description %>
-    Applicable clients:
+    <strong>Applicable clients:</strong></br>
     <% @release.clients.each do |client| %>
       <%= client.name %>,
     <% end %>
-    <%= link_to("Delete", app_release_path(@release.app.id, @release.id), method: :delete) %>
+    <div>
+      <strong>Release Details:</strong>
+      <p>
+        <%= @release.description %>
+      </p>
+    </div>
+    <span>
+      <%= link_to("Delete", app_release_path(@app.id, @release.id), method: :delete) %>
+      |
+      <%= link_to("Edit", app_release_path(@app.id, @release.id), method: :delete) %>
+    </span>
+
+    <h5><%= link_to("Return to #{@app.name} release index", app_path(@app.id)) %></h5>
   </div>

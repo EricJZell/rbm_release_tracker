@@ -4,9 +4,23 @@
 <ul>
   <% @app.releases.each do |release| %>
     <li id="<%= dom_id(release)%>" class="index_list_item">
-      <%= link_to("Branch: #{release.branch_name}", app_release_path(@app.id, release.id)) %>
-      <%= link_to("Edit", edit_app_release_path(@app.id, release.id)) %>
-      <%= link_to("Delete", app_release_path(@app.id, release.id), method: :delete) %>
+      <h3>
+        Release: <%= link_to("#{release.tag_name}", app_release_path(@app.id, release.id)) %>
+      </h3>
+      <div>
+        Clients: <%= release.clients.pluck(:name).join(', ') %>
+      </div>
+      <div>
+        <strong>Description:</strong>
+      </div>
+      <p>
+        <%= release.description %>
+      </p>
+      <span>
+        <%= link_to("Edit", edit_app_release_path(@app.id, release.id)) %>
+        |
+        <%= link_to("Delete", app_release_path(@app.id, release.id), method: :delete) %>
+      </span>
     </li>
   <% end %>
 </ul>
