@@ -12,4 +12,11 @@ describe Release do
       expect(app0_releases).to include(releases[0])
     end
   end
+
+  describe "#release_date" do
+    it "puts the created_at date in a human readable format" do
+      release = FactoryGirl.create(:release, app: apps.first)
+      expect(release.release_date).to eq(release.created_at.strftime("%B %d, %Y, %H:%M"))
+    end
+  end
 end
