@@ -1,17 +1,43 @@
 <h1>Clients</h1>
 <div class="row">
-  <div class="small-8 columns">
+  <div class="small-12 columns">
     <ul>
       <% @apps.each do |app| %>
         <li id="<%= dom_id(app)%>" class="index_list_item">
-          <%= link_to(app.name, app_path(app)) %> clients:
-          <ul class="app_clients">
-            <% app.clients.each do |client| %>
-              <li>
-                <%= link_to("#{client.name}", client_path(client.id))%>
-              </li>
-            <%end%>
-          </ul>
+          <h3><%= "#{app.name} clients:" %> </h3>
+          <table class="clients_table">
+            <thead>
+              <tr>
+                <th width="25%">Name</th>
+                <th width="15%">Abbreviation</th>
+                <th width="35%">Current Release</th>
+                <th width="25%">Functions</th>
+              </tr>
+            </thead>
+            <tbody class="clients_table">
+              <% app.clients.each do |client| %>
+                <tr id="<%= dom_id(client)%>">
+                  <td>
+                    <%= link_to(client.name, client_path(client.id)) %>
+                  </td>
+                  <td><%= client.abbreviated_name %></td>
+                  <td>
+                    <% if client.current_release %>
+                      <%= client.current_release.tag_name %>
+                    <% else %>
+                      <%= "No releases for #{client.name} yet" %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to("Delete", client_path(client), method: :delete,
+                      data: { confirm: 'Are you sure?' }) %>
+                    |
+                    <%= link_to("Edit", edit_client_path(client)) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </li>
       <% end %>
     </ul>
