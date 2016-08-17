@@ -7,7 +7,9 @@
           <%= link_to(app.name, app_path(app)) %> clients:
           <ul class="app_clients">
             <% app.clients.each do |client| %>
-              <li><%="#{client.name} (#{client.abbreviated_name})"%></li>
+              <li>
+                <%= link_to("#{client.name}", client_path(client.id))%>
+              </li>
             <%end%>
           </ul>
         </li>
