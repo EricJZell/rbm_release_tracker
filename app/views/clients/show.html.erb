@@ -3,7 +3,7 @@
 <div id="current_release">
   <h3>Current Release:</h3>
   <h5><%= "Version #{@client.current_release.tag_name}" %></h5>
-  <h6><%= "Created: #{@client.current_release.created_at.strftime("%B %d, %Y")}" %></h6>
+  <h6><%= "Created: #{@client.current_release.release_date}" %></h6>
   <p>
     <strong>Release Details:</strong> </br>
     <%= @client.current_release.description %>
@@ -27,7 +27,7 @@
           <td>
             <%= link_to(release.tag_name, app_release_path(release.app.id, release.id)) %>
           </td>
-          <td><%= release.created_at.strftime("%B %d, %Y") %></td>
+          <td><%= release.release_date %></td>
           <td><%= release.description %></td>
           <td><%= release.clients.pluck(:name).join(', ') %></td>
         </tr>

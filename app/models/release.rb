@@ -10,4 +10,8 @@ class Release < ActiveRecord::Base
     where(app: app)
   end
 
+  def release_date
+    created_at.strftime("%B %d, %Y, %H:%M")
+  end
+
 end
