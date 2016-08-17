@@ -31,7 +31,7 @@ feature 'user creates a new release', %{
     click_link "Add a new release"
     check "ATT"
     click_button "Save"
-    expect(page).to have_content("Branch name can't be blank")
+    expect(page).to have_content("Tag name can't be blank")
   end
 
 end

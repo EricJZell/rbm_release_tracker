@@ -18,10 +18,10 @@ feature 'user views list of apps', %{
   scenario 'user views details of two different apps' do
     visit apps_path
     click_link("#{apps[0].name}")
-    expect(page).to have_content(releases[0].branch_name)
+    expect(page).to have_content(releases[0].tag_name)
     visit apps_path
     click_link("#{apps[1].name}")
-    expect(page).to have_content(releases[1].branch_name)
+    expect(page).to have_content(releases[1].tag_name)
   end
 
 

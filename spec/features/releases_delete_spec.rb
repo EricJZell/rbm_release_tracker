@@ -22,17 +22,17 @@ feature 'user deletes a release', %{
       click_link "Delete"
     end
     expect(page).to have_content("Release Deleted Successfully")
-    expect(page).to_not have_content(release.branch_name)
+    expect(page).to_not have_content(release.tag_name)
   end
 
   scenario 'user deletes a release from the release page' do
     visit app_path(app)
     within "#release_#{release.id}" do
-      click_link release.branch_name
+      click_link release.tag_name
     end
     click_link "Delete"
     expect(page).to have_content("Release Deleted Successfully")
-    expect(page).to_not have_content(release.branch_name)
+    expect(page).to_not have_content(release.tag_name)
   end
 
 end
