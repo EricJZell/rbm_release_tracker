@@ -19,10 +19,26 @@
  *= require foundation_and_overrides
 
  */
+
+div.main {
+  padding: 1em;
+}
+
  .menu-text {
    color: #eee;
  }
 
  li {
    list-style: none;
+ }
+
+ li.index_list_item {
+   border: 1px solid #eee;
+   border-radius: 4px;
+   margin: 1em 0 1em 0;
+   padding: 2em;
+ }
+
+ ul.app_clients {
+   font-size: .8em;
  }

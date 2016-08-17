@@ -3,7 +3,7 @@
 <h2>Releases:</h2>
 <ul>
   <% @app.releases.each do |release| %>
-    <li id="<%= dom_id(release)%>">
+    <li id="<%= dom_id(release)%>" class="index_list_item">
       <%= link_to("Branch: #{release.branch_name}", app_release_path(@app.id, release.id)) %>
       <%= link_to("Edit", edit_app_release_path(@app.id, release.id)) %>
       <%= link_to("Delete", app_release_path(@app.id, release.id), method: :delete) %>

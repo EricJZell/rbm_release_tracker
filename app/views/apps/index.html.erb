@@ -1,9 +1,9 @@
-<h1>Apps</h1>
+<h1>RBM Apps:</h1>
 <div class="row">
-  <div class="small-4 columns">
+  <div class="small-8 medium-6 columns">
     <ul>
       <% @apps.each do |app| %>
-        <li id="<%= dom_id(app)%>">
+        <li id="<%= dom_id(app)%>" class="index_list_item">
           <%= link_to(app.name, app_path(app)) %>
         </li>
       <% end %>

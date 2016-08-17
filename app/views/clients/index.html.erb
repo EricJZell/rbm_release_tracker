@@ -3,9 +3,9 @@
   <div class="small-8 columns">
     <ul>
       <% @apps.each do |app| %>
-        <li id="<%= dom_id(app)%>">
+        <li id="<%= dom_id(app)%>" class="index_list_item">
           <%= link_to(app.name, app_path(app)) %> clients:
-          <ul>
+          <ul class="app_clients">
             <% app.clients.each do |client| %>
               <li><%="#{client.name} (#{client.abbreviated_name})"%></li>
             <%end%>
