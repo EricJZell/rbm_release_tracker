@@ -19,7 +19,8 @@
       <span>
         <%= link_to("Edit", edit_app_release_path(@app.id, release.id)) %>
         |
-        <%= link_to("Delete", app_release_path(@app.id, release.id), method: :delete) %>
+        <%= link_to("Delete", app_release_path(@app.id, release.id), method: :delete,
+          data: { confirm: 'Are you sure?' }) %>
       </span>
     </li>
   <% end %>

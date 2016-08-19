@@ -1,4 +1,4 @@
-<h1><%= "#{@client.name} (#{@client.abbreviated_name}) release details:"%></h1>
+<h1><%= "#{@client.name} release details"%></h1>
 
 <div id="current_release">
   <h3>Current Release:</h3>
@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody class="releases_table">
-      <% @client.releases.order(created_at: :desc).each do |release| %>
+      <% @client.releases.each do |release| %>
         <tr id="<%= dom_id(release)%>">
           <td>
             <%= link_to(release.tag_name, app_release_path(release.app.id, release.id)) %>
