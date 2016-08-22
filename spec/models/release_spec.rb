@@ -13,10 +13,10 @@ describe Release do
     end
   end
 
-  describe "#release_date" do
+  describe "#formatted_release_date" do
     it "puts the created_at date in a human readable format" do
-      release = FactoryGirl.create(:release, app: apps.first)
-      expect(release.release_date).to eq(release.created_at.strftime("%B %d, %Y, %H:%M"))
+      release = FactoryGirl.create(:release, app: apps.first, release_date: Time.now)
+      expect(release.formatted_release_date).to eq(release.release_date.strftime("%B %d, %Y, %H:%M"))
     end
   end
 end
