@@ -54,6 +54,14 @@ class ReleasesController < ApplicationController
     redirect_to app_path(@app)
   end
 
+  def mark_as_released
+    @release = Release.find(params[:id])
+    @release.update_attribute(:release_date, Time.now)
+    flash[:notice] = "#{@release.tag_name} is now marked as 'Released'"
+    @app = App.find(params[:app_id])
+    redirect_to app_path(@app)
+  end
+
   private
 
   def release_params

@@ -3,7 +3,7 @@
 <div id="current_release">
   <h3>Current Release:</h3>
   <h5><%= "Version #{@client.current_release.tag_name}" %></h5>
-  <h6><%= "Created: #{@client.current_release.release_date}" %></h6>
+  <h6><%= "Created: #{@client.current_release.formatted_release_date}" %></h6>
   <p>
     <strong>Release Details:</strong> </br>
     <%= @client.current_release.description %>
@@ -16,18 +16,42 @@
     <thead>
       <tr>
         <th width="15%">Version</th>
-        <th width="15%">Created</th>
+        <th width="15%">Release Date</th>
         <th width="35%">Description</th>
         <th width="35%">Affected Clients</th>
       </tr>
     </thead>
     <tbody class="releases_table">
-      <% @client.releases.each do |release| %>
+      <% @client.releases.released.each do |release| %>
         <tr id="<%= dom_id(release)%>">
           <td>
             <%= link_to(release.tag_name, app_release_path(release.app.id, release.id)) %>
           </td>
-          <td><%= release.release_date %></td>
+          <td><%= release.formatted_release_date %></td>
+          <td><%= release.description %></td>
+          <td><%= release.clients.pluck(:name).join(', ') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="pending_releases">
+  <h5><%= "#{@client.name} Pending Releases:" %></h5>
+  <table class="pending_releases_table">
+    <thead>
+      <tr>
+        <th width="20%">Version</th>
+        <th width="40%">Description</th>
+        <th width="40%">Affected Clients</th>
+      </tr>
+    </thead>
+    <tbody class="pending_releases_table">
+      <% @client.releases.pending.each do |release| %>
+        <tr id="<%= dom_id(release)%>">
+          <td>
+            <%= link_to(release.tag_name, app_release_path(release.app.id, release.id)) %>
+          </td>
           <td><%= release.description %></td>
           <td><%= release.clients.pluck(:name).join(', ') %></td>
         </tr>

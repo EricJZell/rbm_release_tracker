@@ -13,7 +13,7 @@ feature 'user views a clients details', %{
 
   let!(:client) { FactoryGirl.create(:client_with_releases) }
 
-  scenario 'user navigates to root path' do
+  scenario 'user views a clients details' do
     visit clients_path
     click_link client.name
 
@@ -22,11 +22,16 @@ feature 'user views a clients details', %{
     end
 
     within('#release_history') do
-      client.releases.each do |release|
+      client.releases.released.each do |release|
         expect(page).to have_content(release.tag_name)
       end
     end
 
+    within('#pending_releases') do
+      client.releases.pending.each do |release|
+        expect(page).to have_content(release.tag_name)
+      end
+    end
 
   end
 
