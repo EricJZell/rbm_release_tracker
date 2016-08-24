@@ -1,10 +1,10 @@
 <h1><%= "#{@client.name} release details"%></h1>
 
-<div id="current_release">
+<div id="current_release" class="release_section">
   <% if @client.current_release %>
     <h3>Current Release:</h3>
     <h5><%= "Version #{@client.current_release.tag_name}" %></h5>
-    <h6><%= "Created: #{@client.current_release.formatted_release_date}" %></h6>
+    <h6><%= "Released: #{@client.current_release.formatted_release_date}" %></h6>
     <p>
       <strong>Release Details:</strong> </br>
       <%= @client.current_release.description %>
@@ -14,7 +14,37 @@
   <% end %>
 </div>
 
-<div id="release_history">
+<% if @client.releases.pending.any? %>
+  <div id="pending_releases" class="release_section">
+    <h5><%= "#{@client.name} Pending Releases:" %></h5>
+    <table class="pending_releases_table">
+      <thead>
+        <tr>
+          <th width="20%">Version</th>
+          <th width="40%">Description</th>
+          <th width="40%">Affected Clients</th>
+        </tr>
+      </thead>
+      <tbody class="pending_releases_table">
+        <% @client.releases.pending.each do |release| %>
+          <tr id="<%= dom_id(release)%>_pending">
+            <td>
+              <%= link_to(release.tag_name, app_release_path(release.app.id, release.id)) %>
+            </td>
+            <td><%= release.description %></td>
+            <td>
+              <% release.clients.each do |client| %>
+                <%= link_to(client.name, client_path(client)) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<div id="release_history" class="release_section">
   <h5><%= "#{@client.name} Release History:" %></h5>
   <table class="releases_table">
     <thead>
@@ -33,36 +63,17 @@
           </td>
           <td><%= release.formatted_release_date %></td>
           <td><%= release.description %></td>
-          <td><%= release.clients.pluck(:name).join(', ') %></td>
+          <td>
+            <% release.clients.each do |client| %>
+              <%= link_to(client.name, client_path(client)) %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
 
-<div id="pending_releases">
-  <h5><%= "#{@client.name} Pending Releases:" %></h5>
-  <table class="pending_releases_table">
-    <thead>
-      <tr>
-        <th width="20%">Version</th>
-        <th width="40%">Description</th>
-        <th width="40%">Affected Clients</th>
-      </tr>
-    </thead>
-    <tbody class="pending_releases_table">
-      <% @client.releases.pending.each do |release| %>
-        <tr id="<%= dom_id(release)%>_pending">
-          <td>
-            <%= link_to(release.tag_name, app_release_path(release.app.id, release.id)) %>
-          </td>
-          <td><%= release.description %></td>
-          <td><%= release.clients.pluck(:name).join(', ') %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
 <h5>
   <%= link_to("Delete this client", client_path(@client), method: :delete,
     data: { confirm: 'Are you sure you want to delete this client?' }) %>

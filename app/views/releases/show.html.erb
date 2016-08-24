@@ -2,7 +2,7 @@
   <div>
     <strong>Applicable clients:</strong></br>
     <% @release.clients.each do |client| %>
-      <%= client.name %>,
+      <%= link_to(client.name, client_path(client)) %>
     <% end %>
     <div>
       <strong>Release Details:</strong>
