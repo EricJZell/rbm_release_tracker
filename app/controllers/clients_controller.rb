@@ -33,6 +33,21 @@ class ClientsController < ApplicationController
     end
   end
 
+  def edit
+    @app = @client.app
+  end
+
+  def update
+    @app = @client.app
+    if @client.update(client_params)
+      flash[:primary] = "Client Updated Successfully"
+      redirect_to clients_path
+    else
+      flash[:alert] = @client.errors.full_messages.join(', ')
+      render :edit
+    end
+  end
+
 
 private
 
