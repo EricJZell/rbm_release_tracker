@@ -3,7 +3,7 @@
   <div class="small-12 columns">
     <ul>
       <% @apps.each do |app| %>
-        <li id="<%= dom_id(app)%>" class="index_list_item">
+        <li id="<%= dom_id(app)%>_clients" class="index_list_item">
           <h3><%= "#{app.name} clients:" %> </h3>
           <table class="clients_table">
             <thead>
@@ -38,6 +38,7 @@
               <% end %>
             </tbody>
           </table>
+          <h5><%= link_to("Add a new client!", new_client_path(app_id: app.id)) %></h5>
         </li>
       <% end %>
     </ul>
