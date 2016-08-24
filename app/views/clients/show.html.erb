@@ -1,13 +1,17 @@
 <h1><%= "#{@client.name} release details"%></h1>
 
 <div id="current_release">
-  <h3>Current Release:</h3>
-  <h5><%= "Version #{@client.current_release.tag_name}" %></h5>
-  <h6><%= "Created: #{@client.current_release.formatted_release_date}" %></h6>
-  <p>
-    <strong>Release Details:</strong> </br>
-    <%= @client.current_release.description %>
-  </p>
+  <% if @client.current_release %>
+    <h3>Current Release:</h3>
+    <h5><%= "Version #{@client.current_release.tag_name}" %></h5>
+    <h6><%= "Created: #{@client.current_release.formatted_release_date}" %></h6>
+    <p>
+      <strong>Release Details:</strong> </br>
+      <%= @client.current_release.description %>
+    </p>
+  <% else %>
+    <h3>No releases have been pushed to production yet for <%= @client.name %></h3>
+  <% end %>
 </div>
 
 <div id="release_history">
@@ -59,3 +63,9 @@
     </tbody>
   </table>
 </div>
+<h5>
+  <%= link_to("Delete this client", client_path(@client), method: :delete,
+    data: { confirm: 'Are you sure you want to delete this client?' }) %>
+  |
+  <%= link_to("Edit Client", edit_client_path(@client)) %>
+</h5>

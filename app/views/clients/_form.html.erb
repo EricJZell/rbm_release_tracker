@@ -1,0 +1,10 @@
+<%= form_for @client do |form| %>
+  <%= form.hidden_field :app_id, value: @app.id %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :abbreviated_name %>
+  <%= form.text_field :abbreviated_name %>
+
+  <%= form.submit "Save" %>
+<% end %>
