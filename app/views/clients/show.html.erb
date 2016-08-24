@@ -48,7 +48,7 @@
     </thead>
     <tbody class="pending_releases_table">
       <% @client.releases.pending.each do |release| %>
-        <tr id="<%= dom_id(release)%>">
+        <tr id="<%= dom_id(release)%>_pending">
           <td>
             <%= link_to(release.tag_name, app_release_path(release.app.id, release.id)) %>
           </td>

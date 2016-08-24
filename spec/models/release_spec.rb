@@ -19,4 +19,14 @@ describe Release do
       expect(release.formatted_release_date).to eq(release.release_date.strftime("%B %d, %Y, %H:%M"))
     end
   end
+
+  describe "#released?" do
+    it "returns true for a release that has been marked as released" do
+      release = FactoryGirl.create(:release, app: apps.first)
+      expect(release.released?).to be(false)
+      release.update_attribute(:release_date, Time.now - 1.day)
+      expect(release.released?).to be(true)
+    end
+  end
+
 end

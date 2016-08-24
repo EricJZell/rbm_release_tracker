@@ -12,17 +12,17 @@ feature 'user views list of apps', %{
 } do
 
   let!(:apps) { [App.create(name: "VMM"), App.create(name: "Vodafone")]}
-  let!(:releases) { [FactoryGirl.create(:release, app: apps[0]),
-                    FactoryGirl.create(:release, app: apps[1])] }
 
-  scenario 'user views details of two different apps' do
-    visit apps_path
-    click_link("#{apps[0].name}")
-    expect(page).to have_content(releases[0].tag_name)
-    visit apps_path
-    click_link("#{apps[1].name}")
-    expect(page).to have_content(releases[1].tag_name)
+  scenario 'user navigates to root path' do
+    visit root_path
+    expect(page).to have_content(apps[0].name)
+    expect(page).to have_content(apps[1].name)
   end
 
+  scenario 'user navigates to apps path' do
+    visit apps_path
+    expect(page).to have_content(apps[0].name)
+    expect(page).to have_content(apps[1].name)
+  end
 
 end

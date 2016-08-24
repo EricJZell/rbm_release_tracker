@@ -15,10 +15,4 @@ describe Client do
     end
   end
 
-  describe "#released?" do
-    it "returns true for a release that has been marked as released" do
-      expect(unreleased_release.released?).to be(false)
-      expect(new_release.released?).to be(true)
-    end
-  end
 end
