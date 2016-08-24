@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :apps do
-    resources :releases do
+  resources :apps, only: [:index, :show] do
+    resources :releases, except: [:index] do
       member do
        patch :mark_as_released
      end
