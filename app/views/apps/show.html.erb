@@ -1,27 +1,72 @@
-<h1><%= @app.name %></h1>
-  <%= link_to("Add a new release", new_app_release_path(@app)) %>
-<h2>Releases:</h2>
-<ul>
-  <% @app.releases.each do |release| %>
-    <li id="<%= dom_id(release)%>" class="index_list_item">
-      <h3>
-        Release: <%= link_to("#{release.tag_name}", app_release_path(@app.id, release.id)) %>
-      </h3>
-      <div>
-        Clients: <%= release.clients.pluck(:name).join(', ') %>
-      </div>
-      <div>
-        <strong>Description:</strong>
-      </div>
-      <p>
-        <%= release.description %>
-      </p>
-      <span>
-        <%= link_to("Edit", edit_app_release_path(@app.id, release.id)) %>
-        |
-        <%= link_to("Delete", app_release_path(@app.id, release.id), method: :delete,
-          data: { confirm: 'Are you sure?' }) %>
-      </span>
-    </li>
-  <% end %>
-</ul>
+<h1><%= "#{@app.name} Release Details:" %></h1>
+<%= link_to("Add a new release", new_app_release_path(@app)) %>
+
+<div id="app_release_history">
+  <h5><%= "#{@app.name} Release History:" %></h5>
+  <table class="releases_table">
+    <thead>
+      <tr>
+        <th width="15%">Version</th>
+        <th width="15%">Release Date</th>
+        <th width="30%">Description</th>
+        <th width="30%">Affected Clients</th>
+        <th width="10%">Options</th>
+      </tr>
+    </thead>
+    <tbody class="releases_table">
+      <% @app.releases.released.each do |release| %>
+        <tr id="<%= dom_id(release)%>">
+          <td>
+            <%= link_to(release.tag_name, app_release_path(@app.id, release.id)) %>
+          </td>
+          <td><%= release.formatted_release_date %></td>
+          <td><%= release.description %></td>
+          <td><%= release.clients.pluck(:name).join(', ') %></td>
+          <td>
+            <%= link_to("Delete", app_release_path(@app, release), method: :delete,
+              data: { confirm: 'Are you sure you want to delete this release?' }) %>
+            |
+            <%= link_to("Edit", edit_app_release_path(@app, release)) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="app_pending_releases">
+  <h5><%= "#{@app.name} Pending Releases:" %></h5>
+  <table class="releases_table">
+    <thead>
+      <tr>
+        <th width="15%">Version</th>
+        <th width="30%">Description</th>
+        <th width="30%">Affected Clients</th>
+        <th width="25%">Options</th>
+      </tr>
+    </thead>
+    <tbody class="releases_table">
+      <% @app.releases.pending.each do |release| %>
+        <tr id="<%= dom_id(release)%>_pending">
+          <td>
+            <%= link_to(release.tag_name, app_release_path(@app.id, release.id)) %>
+          </td>
+          <td><%= release.description %></td>
+          <td><%= release.clients.pluck(:name).join(', ') %></td>
+          <td>
+            <%= link_to("Delete", app_release_path(@app, release), method: :delete,
+              data: { confirm: 'Are you sure you want to delete this release?' }) %>
+            |
+            <%= link_to("Edit", edit_app_release_path(@app, release)) %>
+            |
+            <%=
+              link_to("Mark as released!", mark_as_released_app_release_path(@app, release),
+                method: :patch,
+                data: { confirm: 'Are you sure you want to mark this as released?' })
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

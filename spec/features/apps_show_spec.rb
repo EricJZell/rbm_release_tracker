@@ -8,21 +8,41 @@ feature 'user views the details page for an app', %{
   # Acceptance Criteria
   [] The apps details page lists the releases for that app
   [] I can navigate to the details page from the apps index
+  [] The apps release history is shown
+  [] The apps pending releases are shown
 
 } do
 
-  let!(:apps) { [App.create(name: "VMM"), App.create(name: "Vodafone")]}
+  let!(:app) { App.create(name: "VMM") }
+  let!(:releases) { [FactoryGirl.create(:release, app: app),
+                    FactoryGirl.create(:release, app: app),
+                    FactoryGirl.create(:release, app: app, release_date: Time.now),
+                    FactoryGirl.create(:release, app: app, release_date: Time.now - 1.day),
+                  ] }
 
-  scenario 'user navigates to root path' do
-    visit root_path
-    expect(page).to have_content(apps[0].name)
-    expect(page).to have_content(apps[1].name)
+  before do
+    visit apps_path
+    click_link("#{app.name}")
   end
 
-  scenario 'user navigates to apps path' do
-    visit apps_path
-    expect(page).to have_content(apps[0].name)
-    expect(page).to have_content(apps[1].name)
+  scenario 'user can navigate to app details from app index' do
+    expect(page).to have_content("#{app.name} Release Details:")
+  end
+
+  scenario 'user can view the release history of the app' do
+    within('#app_release_history') do
+      app.releases.released.each do |release|
+        expect(page).to have_content(release.tag_name)
+      end
+    end
+  end
+
+  scenario 'user can view the pending releases of an app' do
+    within('#app_pending_releases') do
+      app.releases.pending.each do |release|
+        expect(page).to have_content(release.tag_name)
+      end
+    end
   end
 
 end

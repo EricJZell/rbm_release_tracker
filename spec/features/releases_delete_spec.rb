@@ -14,7 +14,7 @@ feature 'user deletes a release', %{
   let!(:app) { App.create(name: "VMM") }
   let!(:clients) { [FactoryGirl.create(:client, app: app, name: "ATT"),
                     FactoryGirl.create(:client, app: app), name: "Cricket"] }
-  let!(:release) { FactoryGirl.create(:release, app: app) }
+  let!(:release) { FactoryGirl.create(:release, app: app, release_date: Time.now) }
 
   scenario 'user deletes a release from the app page' do
     visit app_path(app)

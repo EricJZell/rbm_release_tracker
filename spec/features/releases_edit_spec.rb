@@ -15,7 +15,7 @@ feature 'user edits a release', %{
   let!(:app) { App.create(name: "VMM") }
   let!(:clients) { [FactoryGirl.create(:client, app: app, name: "ATT"),
                     FactoryGirl.create(:client, app: app), name: "Cricket"] }
-  let!(:release) { FactoryGirl.create(:release, app: app) }
+  let!(:release) { FactoryGirl.create(:release, app: app, release_date: Time.now) }
 
   scenario 'user edits a release with valid info' do
     visit app_path(app)
